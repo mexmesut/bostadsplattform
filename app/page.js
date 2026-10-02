@@ -1,56 +1,46 @@
-const summary = [
-  { label: 'Totalt byggprojekt', value: '12', delta: '+2 sedan månad', tone: 'blue' },
-  { label: 'Pågående byggstarter', value: '7', delta: '3 i planering', tone: 'green' },
-  { label: 'Budget i drift', value: '€ 48.6M', delta: '96% av plan', tone: 'amber' },
-  { label: 'Risknivå', value: 'Låg', delta: '2 avvikelser', tone: 'red' },
+const project = {
+  name: 'Tomt A + Tomt B',
+  status: 'Förberedelse / granskning',
+  summary: 'Nybyggnadsprojekt med två tomter parallellt, befintliga lägenheter i hyresdrift ersätts med ny bostadsproduktion.',
+  phase: 'Kommungranskning',
+  timeline: 'Säsong 2026/2027',
+  owner: 'Ägare / projektansvarig',
+};
+
+const kpis = [
+  { label: 'Projektstatus', value: 'På väg mot beslut', tone: 'blue' },
+  { label: 'Arkitektstatus', value: 'Skisser i arbete', tone: 'amber' },
+  { label: 'Kommungranskning', value: '3 aktörer parallellt', tone: 'green' },
+  { label: 'Risknivå', value: 'Medel', tone: 'red' },
 ];
 
-const projects = [
-  {
-    name: 'Norrby Park',
-    type: 'Flerbostadshus',
-    progress: 74,
-    status: 'I byggnation',
-    value: '€ 12.4M',
-    nextMilestone: 'Taksystem klar',
-  },
-  {
-    name: 'Sundsvik Homes',
-    type: 'Kvalitetsprojekt',
-    progress: 58,
-    status: 'I produktion',
-    value: '€ 9.7M',
-    nextMilestone: 'Väggar + infästningar',
-  },
-  {
-    name: 'Åkerud 7',
-    type: 'Småhusområde',
-    progress: 31,
-    status: 'Förberedelse',
-    value: '€ 6.2M',
-    nextMilestone: 'Markarbeten',
-  },
+const actors = [
+  { name: 'Aktör 1', stage: 'Antagande', status: 'Pågår', detail: 'Nära beslut / svar väntar' },
+  { name: 'Aktör 2', stage: 'Granskning', status: 'I process', detail: 'Dokument och ritningar under uppdatering' },
+  { name: 'Aktör 3', stage: 'Granskning', status: 'I process', detail: 'Parallell process med övriga aktörer' },
 ];
 
 const tasks = [
-  { title: 'Kostnadsuppföljning', owner: 'Ekonomi', date: 'Idag', status: 'På gång' },
-  { title: 'Bygglovsstatus', owner: 'Fastighet', date: 'Imorgon', status: 'I granskning' },
-  { title: 'Leverantörsavtal', owner: 'Inköp', date: 'Onsdag', status: 'Godkänd' },
-  { title: 'Kvalitetskontroll', owner: 'Projektledning', date: 'Fredag', status: 'Schemalagd' },
+  { title: 'Säkerställ komplett arkitektpaket', owner: 'Arkitekt', date: 'Idag', status: 'Pågår' },
+  { title: 'Kravlista kommunaktörer', owner: 'Projektledare', date: '1-2 dagar', status: 'Planerat' },
+  { title: 'Representant för kommunkontakt', owner: 'Ägare', date: 'Nästa vecka', status: 'Behöver tillsättas' },
+  { title: 'Underjordiskt garage – kostnadsberäkning', owner: 'Konsult', date: 'Vecka 2', status: 'Behöver bekräftelse' },
+  { title: 'Fuktsäkerhets-/grundutredning', owner: 'Konsult', date: 'Vecka 3', status: 'Planerat' },
 ];
 
-const timeline = [
-  { phase: 'Planering', percent: 100, label: 'Klar' },
-  { phase: 'Förberedelse', percent: 86, label: 'Aktiv' },
-  { phase: 'Byggnation', percent: 63, label: 'Aktiv' },
-  { phase: 'Slutförande', percent: 18, label: 'Kommande' },
+const costs = [
+  { label: 'Underjordiskt garage', value: '20 000–30 000 kr/kvm', note: 'Rimlig budgetnivå i Sverige' },
+  { label: 'Geoteknik / markutredning', value: '250 000–800 000 kr', note: 'Beroende på markförhållanden' },
+  { label: 'Grund & dränering', value: 'Hög volymkostnad', note: 'Kan påverka totalbudget kraftigt' },
+  { label: 'Risk för fördröjning', value: 'Medel', note: 'Om dokument och ritningar inte är fullständiga' },
 ];
 
-const activities = [
-  'Norrby Park: 18 arbetslag aktiva',
-  'Sundsvik Homes: 2 leverantörer försenade',
-  'Åkerud 7: 3 dokument behövs för godkännande',
-  'Nytt KPI-grupp: CO2-värdering för byggmaterial',
+const actions = [
+  'Inrätta tydlig ansvarig representant mot kommunen',
+  'Sammanfatta vad varje aktör kräver för beslut och dokument',
+  'Säkerställ att arkitektens skisser är “inlämningsklara” inför granskning',
+  'Skapa checklistor med deadlines och svarstider',
+  'Följ upp om parterna ligger före eller efter andra aktörer',
 ];
 
 export default function Home() {
@@ -67,17 +57,17 @@ export default function Home() {
 
         <nav className="nav">
           <a className="nav-item active" href="#">Översikt</a>
-          <a className="nav-item" href="#">Projekt</a>
-          <a className="nav-item" href="#">Budget</a>
-          <a className="nav-item" href="#">Tidsplan</a>
+          <a className="nav-item" href="#">Tomter</a>
+          <a className="nav-item" href="#">Granskning</a>
+          <a className="nav-item" href="#">Kostnad</a>
           <a className="nav-item" href="#">Dokument</a>
           <a className="nav-item" href="#">Automation</a>
         </nav>
 
         <div className="sidebar-card">
-          <p className="eyebrow muted">Nästa milstolpe</p>
-          <h3>Projektmöte</h3>
-          <p>Onsdag 14:00 – samordning för Norrby Park</p>
+          <p className="eyebrow muted">Projekt</p>
+          <h3>{project.name}</h3>
+          <p>{project.phase}</p>
         </div>
       </aside>
 
@@ -85,17 +75,31 @@ export default function Home() {
         <header className="topbar">
           <div>
             <p className="eyebrow muted">Fastighetsutveckling</p>
-            <h2>Projektöversikt</h2>
+            <h2>{project.name}</h2>
           </div>
           <button className="primary-button">Ny rapport</button>
         </header>
 
+        <div className="project-summary">
+          <div>
+            <span className="status-tag">{project.status}</span>
+            <p>{project.summary}</p>
+          </div>
+          <div className="summary-meta">
+            <small>Fas</small>
+            <strong>{project.phase}</strong>
+            <small>Tidsplan</small>
+            <strong>{project.timeline}</strong>
+            <small>Ansvar</small>
+            <strong>{project.owner}</strong>
+          </div>
+        </div>
+
         <div className="kpi-grid">
-          {summary.map((item) => (
+          {kpis.map((item) => (
             <div key={item.label} className={`kpi-card ${item.tone}`}>
               <p>{item.label}</p>
               <h3>{item.value}</h3>
-              <span>{item.delta}</span>
             </div>
           ))}
         </div>
@@ -103,31 +107,29 @@ export default function Home() {
         <div className="main-grid">
           <div className="panel wide">
             <div className="panel-head">
-              <h3>Projektportfölj</h3>
-              <button className="ghost-button">Visa alla</button>
+              <h3>Granskande aktörer</h3>
+              <button className="ghost-button">Visa detaljer</button>
             </div>
 
             <div className="project-list">
-              {projects.map((project) => (
-                <div key={project.name} className="project-row">
+              {actors.map((actor) => (
+                <div key={actor.name} className="project-row">
                   <div>
-                    <strong>{project.name}</strong>
-                    <span>{project.type}</span>
+                    <strong>{actor.name}</strong>
+                    <span>{actor.stage}</span>
                   </div>
 
                   <div className="progress-box">
                     <div className="progress-label">
-                      <span>{project.progress}%</span>
-                      <small>{project.status}</small>
+                      <span>{actor.status}</span>
                     </div>
                     <div className="progress-bar">
-                      <div style={{ width: `${project.progress}%` }} />
+                      <div style={{ width: actor.status === 'Pågår' ? '65%' : '50%' }} />
                     </div>
                   </div>
 
                   <div className="money-box">
-                    <span>{project.value}</span>
-                    <small>{project.nextMilestone}</small>
+                    <span>{actor.detail}</span>
                   </div>
                 </div>
               ))}
@@ -160,20 +162,17 @@ export default function Home() {
         <div className="bottom-grid">
           <div className="panel">
             <div className="panel-head">
-              <h3>Fasstatus</h3>
+              <h3>Garage- och kostnadsöversikt</h3>
             </div>
 
             <div className="timeline-list">
-              {timeline.map((item) => (
-                <div key={item.phase} className="timeline-item">
+              {costs.map((cost) => (
+                <div key={cost.label} className="timeline-item">
                   <div className="timeline-header">
-                    <span>{item.phase}</span>
-                    <strong>{item.label}</strong>
+                    <span>{cost.label}</span>
+                    <strong>{cost.value}</strong>
                   </div>
-                  <div className="mini-bar">
-                    <div style={{ width: `${item.percent}%` }} />
-                  </div>
-                  <small>{item.percent}%</small>
+                  <small>{cost.note}</small>
                 </div>
               ))}
             </div>
@@ -181,12 +180,12 @@ export default function Home() {
 
           <div className="panel">
             <div className="panel-head">
-              <h3>Senaste händelser</h3>
+              <h3>Viktiga nästa steg</h3>
             </div>
 
             <ul className="activity-list">
-              {activities.map((activity) => (
-                <li key={activity}>{activity}</li>
+              {actions.map((action) => (
+                <li key={action}>{action}</li>
               ))}
             </ul>
           </div>
